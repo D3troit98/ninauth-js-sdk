@@ -2,6 +2,9 @@
 
 NINAuth browser SDK package for hosted OAuth login flows.
 
+For complete setup and integration instructions, see the
+[NINAuth Developer Guide](https://ssologin.nimc.gov.ng/demo-sign-in/developer-guide).
+
 ## Install
 
 ```bash
