@@ -1,0 +1,113 @@
+{
+  "name": "@ninauth/sdk",
+  "version": "0.2.15",
+  "description": "Web, React Native, and Expo SDK for NINAuth hosted OAuth flows.",
+  "license": "MIT",
+  "keywords": [
+    "ninauth",
+    "nin",
+    "nimc",
+    "oauth",
+    "oauth2",
+    "openid-connect",
+    "authentication",
+    "identity",
+    "pkce",
+    "react-native",
+    "expo"
+  ],
+  "homepage": "https://github.com/D3troit98/ninauth-js-sdk#readme",
+  "bugs": {
+    "url": "https://github.com/D3troit98/ninauth-js-sdk/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/D3troit98/ninauth-js-sdk.git"
+  },
+  "files": [
+    "dist"
+  ],
+  "type": "module",
+  "sideEffects": [
+    "./dist/ninauth.js",
+    "./dist/ninauth.css"
+  ],
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    },
+    "./ninauth.css": "./dist/ninauth.css",
+    "./ninauth.js": "./dist/ninauth.js",
+    "./react-native": {
+      "types": "./dist/react-native.d.ts",
+      "react-native": "./dist/react-native.js",
+      "import": "./dist/react-native.js",
+      "default": "./dist/react-native.js"
+    },
+    "./expo": {
+      "types": "./dist/expo.d.ts",
+      "react-native": "./dist/expo.js",
+      "import": "./dist/expo.js",
+      "default": "./dist/expo.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "prepack": "npm run build",
+    "pack:check": "npm pack --dry-run"
+  },
+  "peerDependencies": {
+    "@noble/hashes": ">=2",
+    "expo-crypto": ">=14",
+    "expo-linking": ">=7",
+    "expo-web-browser": ">=14",
+    "react": ">=18",
+    "react-native": ">=0.73",
+    "react-native-get-random-values": ">=1.11",
+    "react-native-inappbrowser-reborn": ">=3.7",
+    "react-native-svg": ">=15",
+    "react-native-url-polyfill": ">=2.0"
+  },
+  "peerDependenciesMeta": {
+    "@noble/hashes": {
+      "optional": true
+    },
+    "expo-crypto": {
+      "optional": true
+    },
+    "expo-linking": {
+      "optional": true
+    },
+    "expo-web-browser": {
+      "optional": true
+    },
+    "react-native": {
+      "optional": true
+    },
+    "react-native-get-random-values": {
+      "optional": true
+    },
+    "react-native-inappbrowser-reborn": {
+      "optional": true
+    },
+    "react-native-svg": {
+      "optional": true
+    },
+    "react-native-url-polyfill": {
+      "optional": true
+    }
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "packageManager": "pnpm@11.5.2"
+}

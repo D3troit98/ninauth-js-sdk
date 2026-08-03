@@ -1,0 +1,762 @@
+.ninauth-root {
+  --na-primary: #059661;
+  --na-ink: #17191c;
+  --na-muted: #62676f;
+  --na-bg: #f7f7f5;
+  --na-panel: #f3f4f2;
+  --na-line: #e7e8e5;
+  color: var(--na-ink);
+  font-family:
+    "Google Sans Flex",
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+}
+
+.ninauth-shell {
+  min-height: 100dvh;
+  background: var(--na-bg);
+}
+
+.ninauth-launch-button {
+  --na-primary: #008643;
+  display: inline-flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 48px;
+  border: 0;
+  border-radius: 999px;
+  cursor: pointer;
+  padding: 12px 20px;
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.2;
+  transition:
+    transform 120ms ease,
+    opacity 120ms ease,
+    background 120ms ease,
+    color 120ms ease,
+    box-shadow 120ms ease;
+}
+
+.ninauth-launch-button--green {
+  background: var(--na-primary);
+  color: #fff;
+}
+
+.ninauth-launch-button--green:hover {
+  background: #06753b;
+}
+
+.ninauth-launch-button--green:active {
+  background: #056431;
+}
+
+.ninauth-launch-button--white {
+  background: #fff;
+  color: var(--na-primary);
+  box-shadow:
+    0 1px 2px rgba(16, 24, 40, 0.04),
+    0 1px 3px rgba(16, 24, 40, 0.1);
+}
+
+.ninauth-launch-button--white:hover {
+  background: #f7faf8;
+}
+
+.ninauth-launch-button--white:active {
+  background: #eef6f1;
+}
+
+.ninauth-launch-button:disabled,
+.ninauth-launch-button.is-loading {
+  cursor: wait;
+  opacity: 0.72;
+}
+
+.ninauth-launch-button:focus-visible {
+  outline: 2px solid #9ae6bf;
+  outline-offset: 3px;
+}
+
+.ninauth-launch-button svg {
+  flex-shrink: 0;
+  color: inherit;
+}
+
+.ninauth-launch-button svg path {
+  fill: currentColor;
+}
+
+.ninauth-launch-button:active {
+  transform: translateY(1px);
+}
+
+.ninauth-trust-wrap {
+  position: relative;
+  z-index: 40;
+  background: #dcffe4;
+}
+
+.ninauth-trust {
+  display: flex;
+  min-height: 36px;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0 4px;
+  color: #111111;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  padding: 8px 20px;
+  text-align: center;
+}
+
+.ninauth-trust-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  border: 0;
+  background: transparent;
+  color: #008643;
+  font: inherit;
+  font-weight: 400;
+  line-height: 20px;
+  padding: 0;
+  text-decoration: none;
+}
+
+.ninauth-trust-caret {
+  transition: transform 200ms ease;
+}
+
+.ninauth-trust-button[aria-expanded="true"] .ninauth-trust-caret {
+  transform: rotate(180deg);
+}
+
+.ninauth-notice-panel {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+}
+
+.ninauth-notice-grid {
+  box-sizing: border-box;
+  display: grid;
+  max-width: 1120px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 40px;
+  margin: 0 auto;
+  padding: 24px 16px;
+  color: #333a3f;
+  text-align: left;
+}
+
+.ninauth-notice-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.ninauth-notice-icon {
+  display: flex;
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: #f3f4f2;
+}
+
+.ninauth-notice-icon-official {
+  background: #eafff6;
+}
+
+.ninauth-notice-item h3 {
+  margin: 0;
+  color: #17191c;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.ninauth-notice-item p {
+  max-width: 42rem;
+  margin: 4px 0 0;
+  color: #333a3f;
+  font-size: 15px;
+  line-height: 1.45;
+}
+
+.ninauth-notice-item a {
+  color: #008643;
+  text-decoration: underline;
+}
+
+.ninauth-brand {
+  padding: 34px 6vw 22px;
+}
+
+.ninauth-brand img {
+  height: 32.93px;
+  width: auto;
+}
+
+.ninauth-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+
+  width: min(526px, calc(100vw - 48px));
+  margin: 26.07px auto 64px;
+
+  padding: 40px 24px;
+
+  background: #fff;
+  border-radius: 16px;
+}
+
+.ninauth-flow {
+  display: flex;
+  justify-content: center;
+}
+
+.ninauth-heading-group {
+  display: flex;
+  max-width: max-content;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin: 0 auto;
+  padding: 0;
+}
+
+.ninauth-title {
+  margin: 0;
+  color: #171717;
+  font-family:
+    "Google Sans Flex",
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 120%;
+  text-align: center;
+  letter-spacing: 0;
+}
+
+.ninauth-subtitle {
+  width: min(399px, 100%);
+  margin: 0;
+  color: #525252;
+  font-family:
+    "Google Sans Flex",
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 160%;
+  text-align: center;
+}
+
+.ninauth-method-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+  width: 100%;
+  margin: 0 auto;
+  background: var(--na-panel);
+  border-radius: 10px;
+  padding: 16px 24px;
+}
+
+.ninauth-tabs {
+  display: flex;
+  width: 100%;
+  height: 42px;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  background: #f0f0ee;
+  border-radius: 400px;
+  padding: 4px;
+}
+
+.ninauth-tab {
+  display: flex;
+  height: 34px;
+  flex-grow: 1;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border: 0;
+  border-radius: 400px;
+  background: transparent;
+  color: #111;
+  padding: 6px 12px;
+  font: inherit;
+  font-family:
+    "Google Sans Flex",
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 160%;
+  transition:
+    background 180ms ease,
+    transform 180ms ease;
+}
+
+.ninauth-tab[aria-selected="true"] {
+  background: #fff;
+}
+
+.ninauth-tab:active,
+.ninauth-button:active {
+  transform: translateY(1px);
+}
+
+.ninauth-nin-form {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.ninauth-input-group {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+  padding: 0;
+}
+
+.ninauth-action-group {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.ninauth-field {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 0;
+}
+
+.ninauth-field label {
+  color: #101720;
+  font-family:
+    "Google Sans Flex",
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 140%;
+}
+
+.ninauth-input-wrap {
+  position: relative;
+  width: 100%;
+}
+
+.ninauth-input {
+  box-sizing: border-box;
+  display: flex;
+  width: 100%;
+  height: 52px;
+  flex-direction: row;
+  align-items: center;
+  gap: 32px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  background: #fff;
+  color: var(--na-ink);
+  font: inherit;
+  font-size: 16px;
+  padding: 14px 18px;
+  outline: none;
+}
+
+.ninauth-input:focus {
+  border-color: color-mix(in srgb, var(--na-primary) 42%, white);
+}
+
+.ninauth-eye {
+  position: absolute;
+  top: 50%;
+  right: 14px;
+  display: grid;
+  width: 32px;
+  height: 32px;
+  place-items: center;
+  transform: translateY(-50%);
+  border: 0;
+  background: transparent;
+  padding: 0;
+}
+
+.ninauth-button {
+  display: flex;
+  width: 100%;
+  height: 48px;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 0;
+  border: 0;
+  border-radius: 400px;
+  background: var(--na-primary);
+  color: #fff;
+  font-family:
+    "Google Sans Flex",
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 20px;
+  transition:
+    opacity 180ms ease,
+    transform 180ms ease;
+}
+
+.ninauth-button:disabled {
+  opacity: 0.55;
+}
+
+.ninauth-qr {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+  padding: 0;
+}
+
+.ninauth-qr-box {
+  box-sizing: border-box;
+  position: relative;
+  display: flex;
+  width: 198.85px;
+  height: 198.85px;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 9.3px;
+  background: #fff;
+  border: 0.929634px solid #e5e5e5;
+  border-radius: 11.1556px;
+  padding: 9.29634px;
+}
+
+.ninauth-qr-box img {
+  width: 180px;
+  height: 180px;
+  transition: filter 180ms ease;
+}
+
+.ninauth-qr-box img.is-expired {
+  filter: blur(4px);
+}
+
+.ninauth-qr-expired {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: rgba(255, 255, 255, 0.72);
+  padding: 16px;
+  text-align: center;
+  backdrop-filter: blur(1px);
+}
+
+.ninauth-qr-expired[hidden] {
+  display: none;
+}
+
+.ninauth-qr-expired p {
+  margin: 0 0 12px;
+  color: #111;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 160%;
+}
+
+.ninauth-qr-retry {
+  width: auto;
+  min-width: 112px;
+  height: 36px;
+  padding: 0 20px;
+  font-size: 14px;
+}
+
+.ninauth-qr-loading {
+  color: #53575f;
+  font-size: 14px;
+  line-height: 160%;
+  text-align: center;
+}
+
+.ninauth-steps {
+  counter-reset: ninauth-step;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  color: #111;
+  font-family:
+    "Google Sans Flex",
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 160%;
+}
+
+.ninauth-steps li {
+  counter-increment: ninauth-step;
+  margin-bottom: 10px;
+}
+
+.ninauth-steps li::before {
+  content: counter(ninauth-step) ". ";
+}
+
+.ninauth-steps li:last-child {
+  margin-bottom: 0;
+}
+
+.ninauth-steps span {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: #059661;
+}
+
+.ninauth-consent-box {
+  background: var(--na-bg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 16px 24px;
+  gap: 32px;
+  width: 100%;
+  min-height: 296px;
+  border-radius: 10px;
+}
+
+.ninauth-consent-copy {
+  margin: 0;
+  color: #53575f;
+  font-size: 20px;
+  line-height: 1.55;
+}
+
+.ninauth-otp-tile {
+  display: grid;
+  place-items: center;
+  width: 112px;
+  height: 104px;
+  margin: auto;
+  background: #fff;
+
+  font-weight: 600;
+  font-size: 32px;
+  line-height: 40px;
+  /* identical to box height, or 125% */
+  text-align: center;
+  color: #171717;
+}
+
+.ninauth-note {
+  margin: 0;
+
+  font-style: italic;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 160%;
+  /* or 22px */
+  color: #525252;
+}
+
+.ninauth-countdown {
+  margin: 0;
+  color: #04744b;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 160%;
+  letter-spacing: 0.08em;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+
+.ninauth-download {
+  display: flex;
+  width: 270px;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  margin-top: 0;
+  text-align: center;
+}
+
+.ninauth-download p {
+  margin: 0;
+  color: #333a3f;
+  font-family:
+    "Google Sans Flex",
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+  font-size: 13px;
+  font-weight: 300;
+  line-height: 160%;
+  text-align: center;
+}
+
+.ninauth-store-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 16px;
+  padding: 0;
+}
+
+.ninauth-store-badge {
+  display: block;
+  width: auto;
+  height: 37px;
+}
+
+.ninauth-error,
+.ninauth-success {
+  margin-top: 16px;
+  border-radius: 8px;
+  padding: 12px 14px;
+  font-size: 14px;
+}
+
+.ninauth-error {
+  background: #fff0f0;
+  color: #b42318;
+}
+
+.ninauth-success {
+  background: #e9fff3;
+  color: #04744b;
+}
+
+.ninauth-expired {
+  width: min(560px, calc(100vw - 32px));
+  margin: 70px auto;
+  border-radius: 14px;
+  background: #fff;
+  padding: 42px 36px;
+  text-align: center;
+}
+
+.ninauth-expired-mark {
+  width: 92px;
+  height: 92px;
+  margin: 0 auto 34px;
+  border-radius: 999px;
+  background: #d4d4d4;
+}
+
+@media (max-width: 640px) {
+  .ninauth-trust {
+    padding: 8px 18px;
+    text-align: center;
+    font-size: 13px;
+  }
+
+  .ninauth-notice-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding: 20px 16px;
+  }
+
+  .ninauth-notice-icon {
+    width: 36px;
+    height: 36px;
+  }
+
+  .ninauth-notice-item p {
+    font-size: 14px;
+  }
+
+  .ninauth-brand {
+    padding: 28px 24px 14px;
+  }
+
+  .ninauth-card {
+    margin-top: 16px;
+    padding: 36px 18px 34px;
+  }
+
+  .ninauth-title {
+    font-size: 25px;
+  }
+
+  .ninauth-subtitle,
+  .ninauth-consent-copy {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 160%;
+
+    color: #525252;
+  }
+
+  .ninauth-method-box,
+  .ninauth-consent-box {
+    padding: 18px;
+  }
+}
