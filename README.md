@@ -37,8 +37,34 @@ const client = createClient({
 });
 
 const { code, state, codeVerifier } = client.handleCallback();
-// Exchange code + codeVerifier, then clear only this transaction after success.
+
+await client.exchangeToken({
+  client_id: "ENTC393354556C4",
+  app_id: "APPISGSCGLIF",
+  redirect_uri: "https://example.com/auth/callback",
+  code,
+  code_verifier: codeVerifier,
+  state,
+  // Selected company RC number for business sign-in; empty for personal sign-in.
+  rc_number: "",
+});
+
+// Clear only this transaction after a successful backend token exchange.
 client.completeCallback(state);
+```
+
+For business sign-in, set `rc_number` in the token-exchange payload to the
+selected company's registration number. For personal sign-in, send an empty
+string.
+
+UserInfo follows the same distinction:
+
+```ts
+// Personal sign-in: no rc_number query parameter.
+await client.fetchUserInfo(accessToken);
+
+// Business sign-in: GET /oauth/userinfo?rc_number=RC_NUMBER
+await client.fetchUserInfo(accessToken, "RC_NUMBER");
 ```
 
 PKCE verifier records are scoped to the exact returned `state`, stored in

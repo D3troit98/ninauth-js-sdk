@@ -40,6 +40,8 @@ export interface NINAuthExchangeTokenPayload {
   code: string;
   code_verifier: string;
   state?: string;
+  /** Selected company RC number for business sign-in; use an empty string for personal sign-in. */
+  rc_number?: string;
 }
 
 export interface NINAuthCallbackResult {
@@ -58,7 +60,7 @@ export interface NINAuthClient {
   handleCallback(url?: string): NINAuthCallbackResult;
   completeCallback(state: string): void;
   exchangeToken(payload: NINAuthExchangeTokenPayload): Promise<unknown>;
-  fetchUserInfo(accessToken: string): Promise<unknown>;
+  fetchUserInfo(accessToken: string, rcNumber?: string): Promise<unknown>;
 }
 
 export interface NINAuthSignOutOptions {

@@ -714,14 +714,22 @@
             grant_type: (payload && payload.grant_type) || "authorization_code",
             code: requireValue("code", payload && payload.code),
             code_verifier: requireValue("code_verifier", payload && payload.code_verifier),
+            rc_number: (payload && payload.rc_number) || "",
           }),
         });
         const body = await parseJsonResponse(res, "Unable to exchange NINAuth authorization code.");
         if (payload && payload.state) clearCodeVerifier(payload.state);
         return body;
       },
-      fetchUserInfo: async function (accessToken) {
-        const res = await fetch(joinUrl(apiBaseUrl(config), "/oauth/userinfo"), {
+      fetchUserInfo: async function (accessToken, rcNumber) {
+        const userInfoUrl = new URL(
+          joinUrl(apiBaseUrl(config), "/oauth/userinfo"),
+          window.location.origin,
+        );
+        if (rcNumber && String(rcNumber).trim()) {
+          userInfoUrl.searchParams.set("rc_number", String(rcNumber).trim());
+        }
+        const res = await fetch(userInfoUrl.toString(), {
           headers: { Authorization: "Bearer " + requireValue("accessToken", accessToken) },
         });
         return parseJsonResponse(res, "Unable to fetch NINAuth user info.");
