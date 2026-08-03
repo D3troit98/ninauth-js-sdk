@@ -18,7 +18,7 @@ import "@ninauth/sdk/ninauth.css";
 import { createClient, renderButton } from "@ninauth/sdk";
 
 renderButton("#ninauth-button", {
-  hostedOrigin: "https://your-ninauth-host.com",
+  hostedOrigin: "https://ssologin.nimc.gov.ng",
   clientId: "ENTC393354556C4",
   appId: "APPISGSCGLIF",
   redirectUri: "https://example.com/auth/callback",
