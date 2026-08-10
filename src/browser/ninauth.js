@@ -667,6 +667,7 @@
         }
         const code = url.searchParams.get("code");
         const returnedState = url.searchParams.get("state");
+        const rcNumber = url.searchParams.get("rc_number");
         const pkceKey = normalizePkceKey(url.searchParams.get("pkce_key"));
         const pkceState = resolvePkceState(pkceKey);
         const state = returnedState || pkceState || recoverCallbackState(config);
@@ -695,6 +696,7 @@
           state: state,
           codeVerifier: transaction.verifier,
           pkceKey: pkceKey || pkceStorageKey(state),
+          rcNumber: rcNumber && rcNumber.trim() ? rcNumber.trim() : undefined,
         };
       },
       completeCallback: function (state) {

@@ -36,7 +36,7 @@ const client = createClient({
   redirectUri: "https://example.com/auth/callback",
 });
 
-const { code, state, codeVerifier } = client.handleCallback();
+const { code, state, codeVerifier, rcNumber } = client.handleCallback();
 
 await client.exchangeToken({
   client_id: "ENTC393354556C4",
@@ -45,17 +45,17 @@ await client.exchangeToken({
   code,
   code_verifier: codeVerifier,
   state,
-  // Selected company RC number for business sign-in; empty for personal sign-in.
-  rc_number: "",
+  // Returned for business sign-in; undefined for personal sign-in.
+  rc_number: rcNumber || "",
 });
 
 // Clear only this transaction after a successful backend token exchange.
 client.completeCallback(state);
 ```
 
-For business sign-in, set `rc_number` in the token-exchange payload to the
-selected company's registration number. For personal sign-in, send an empty
-string.
+For business sign-in, NINAuth adds `rc_number` to the callback URL and
+`handleCallback()` returns it as `rcNumber`. Send that value as `rc_number` in
+the token-exchange payload. For personal sign-in, send an empty string.
 
 UserInfo follows the same distinction:
 

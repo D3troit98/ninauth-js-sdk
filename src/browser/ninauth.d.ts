@@ -49,6 +49,8 @@ export interface NINAuthCallbackResult {
   state: string;
   codeVerifier: string;
   pkceKey: string;
+  /** Selected company RC number returned by a business sign-in callback. */
+  rcNumber?: string;
 }
 
 export interface NINAuthClient {
