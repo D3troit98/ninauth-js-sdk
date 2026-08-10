@@ -96,8 +96,9 @@ export function SignInScreen() {
     type: "personal",
     variant: "green",
     size: "default",
-    onSuccess: ({ code, state, codeVerifier, redirectUri }) => {
-      // Send these values to your backend token-exchange endpoint.
+    onSuccess: ({ code, state, codeVerifier, redirectUri, rcNumber }) => {
+      // Send grant_type: "authorization_code" and these values to your backend.
+      // For business sign-in, send rc_number: rcNumber || "".
     },
     onError: console.error,
   });
@@ -132,8 +133,9 @@ export function SignInScreen() {
     scope: ["firstName", "middleName", "lastName"],
     variant: "white",
     size: "large",
-    onSuccess: ({ code, state, codeVerifier, redirectUri }) => {
-      // Send these values to your backend token-exchange endpoint.
+    onSuccess: ({ code, state, codeVerifier, redirectUri, rcNumber }) => {
+      // Send grant_type: "authorization_code" and these values to your backend.
+      // For business sign-in, send rc_number: rcNumber || "".
     },
     onError: console.error,
   });

@@ -28,6 +28,8 @@ export interface NINAuthNativeSuccessResult {
   redirectUri: string;
   callbackUrl: string;
   authorizeUrl: string;
+  /** Selected company RC number returned by a business sign-in callback. */
+  rcNumber?: string;
 }
 
 export interface NINAuthNativeCancelResult {

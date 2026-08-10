@@ -116,6 +116,7 @@ export async function startSignIn(options) {
   }
   const code = callback.searchParams.get("code");
   if (!code) throw new Error("NINAuth callback did not include an authorization code.");
+  const returnedRcNumber = callback.searchParams.get("rc_number");
   return {
     type: "success",
     code,
@@ -124,6 +125,8 @@ export async function startSignIn(options) {
     redirectUri,
     callbackUrl: browserResult.url,
     authorizeUrl,
+    rcNumber:
+      returnedRcNumber && returnedRcNumber.trim() ? returnedRcNumber.trim() : undefined,
   };
 }
 
