@@ -1,6 +1,6 @@
 {
   "name": "@ninauth/sdk",
-  "version": "0.2.17",
+  "version": "0.2.18",
   "description": "Web, React Native, and Expo SDK for NINAuth hosted OAuth flows.",
   "license": "MIT",
   "keywords": [
