@@ -328,10 +328,25 @@
   }
 
   function writePkceTransaction(transaction) {
+    const key = pkceStorageKey(transaction.state);
+    const value = JSON.stringify(transaction);
     try {
-      window.sessionStorage.setItem(pkceStorageKey(transaction.state), JSON.stringify(transaction));
+      window.sessionStorage.setItem(key, value);
     } catch (error) {
       debugLog("pkce write failed", {
+        storage: "sessionStorage",
+        error: error instanceof Error ? error.message : String(error),
+      });
+    }
+    // OAuth callbacks can be opened in a new tab/window by an identity provider.
+    // That browsing context does not share sessionStorage with the tab that
+    // started PKCE. Keep the same short-lived, state-scoped transaction in
+    // localStorage so the callback can recover it, then delete it on completion.
+    try {
+      window.localStorage.setItem(key, value);
+    } catch (error) {
+      debugLog("pkce write failed", {
+        storage: "localStorage",
         error: error instanceof Error ? error.message : String(error),
       });
     }
@@ -342,14 +357,18 @@
     if (!state) return null;
     const key = pkceStorageKey(state);
     try {
-      const raw = window.sessionStorage.getItem(key);
+      const sessionRaw = window.sessionStorage.getItem(key);
+      const localRaw = window.localStorage.getItem(key);
+      const raw = sessionRaw || localRaw;
       if (!raw) return null;
       const parsed = JSON.parse(raw);
       if (!parsed || parsed.state !== state || !parsed.verifier) return null;
       if (isExpired(parsed)) {
         window.sessionStorage.removeItem(key);
+        window.localStorage.removeItem(key);
         return null;
       }
+      if (!sessionRaw) window.sessionStorage.setItem(key, raw);
       return parsed;
     } catch (error) {
       debugLog("pkce read failed", {
@@ -376,34 +395,38 @@
       config.redirectUri || window.location.origin + window.location.pathname;
     const candidates = [];
     try {
-      eachStorageKey(window.sessionStorage, function (key) {
-        if (key.indexOf(PKCE_PREFIX) !== 0) return;
-        const raw = window.sessionStorage.getItem(key);
-        if (!raw) return;
-        let transaction = null;
-        try {
-          transaction = JSON.parse(raw);
-        } catch {
-          window.sessionStorage.removeItem(key);
-          return;
-        }
-        if (!transaction || typeof transaction !== "object" || !transaction.state) return;
-        if (isExpired(transaction)) {
-          window.sessionStorage.removeItem(key);
-          return;
-        }
-        if (transaction.clientId && config.clientId && transaction.clientId !== config.clientId) {
-          return;
-        }
-        if (
-          transaction.redirectUri &&
-          configuredRedirectUri &&
-          transaction.redirectUri !== configuredRedirectUri
-        ) {
-          return;
-        }
-        candidates.push(transaction.state);
-      });
+      function collectCandidate(storage) {
+        eachStorageKey(storage, function (key) {
+          if (key.indexOf(PKCE_PREFIX) !== 0) return;
+          const raw = storage.getItem(key);
+          if (!raw) return;
+          let transaction = null;
+          try {
+            transaction = JSON.parse(raw);
+          } catch {
+            storage.removeItem(key);
+            return;
+          }
+          if (!transaction || typeof transaction !== "object" || !transaction.state) return;
+          if (isExpired(transaction)) {
+            storage.removeItem(key);
+            return;
+          }
+          if (transaction.clientId && config.clientId && transaction.clientId !== config.clientId) {
+            return;
+          }
+          if (
+            transaction.redirectUri &&
+            configuredRedirectUri &&
+            transaction.redirectUri !== configuredRedirectUri
+          ) {
+            return;
+          }
+          if (candidates.indexOf(transaction.state) < 0) candidates.push(transaction.state);
+        });
+      }
+      collectCandidate(window.sessionStorage);
+      collectCandidate(window.localStorage);
     } catch (error) {
       debugLog("pkce recovery failed", {
         error: error instanceof Error ? error.message : String(error),
@@ -415,10 +438,10 @@
 
   function clearPkceStorage() {
     try {
-      eachStorageKey(window.sessionStorage, function (key) {
-        if (key.indexOf(PKCE_PREFIX) === 0) {
-          window.sessionStorage.removeItem(key);
-        }
+      [window.sessionStorage, window.localStorage].forEach(function (storage) {
+        eachStorageKey(storage, function (key) {
+          if (key.indexOf(PKCE_PREFIX) === 0) storage.removeItem(key);
+        });
       });
     } catch (error) {
       debugLog("pkce cleanup skipped", {
@@ -443,7 +466,10 @@
   function clearCodeVerifier(stateOrPkceKey) {
     try {
       const state = resolvePkceState(stateOrPkceKey) || readCallbackState();
-      if (state) window.sessionStorage.removeItem(pkceStorageKey(state));
+      if (state) {
+        window.sessionStorage.removeItem(pkceStorageKey(state));
+        window.localStorage.removeItem(pkceStorageKey(state));
+      }
     } catch (error) {
       debugLog("pkce clear failed", {
         error: error instanceof Error ? error.message : String(error),
@@ -677,8 +703,24 @@
             "NINAuth callback is missing state and no matching PKCE transaction could be recovered.",
           );
         }
+        const transactionKey = pkceStorageKey(pkceState || state);
         const transaction = readPkceTransaction(pkceState || state);
-        if (!transaction) throw new Error("NINAuth callback state is unknown or expired.");
+        if (!transaction) {
+          debugLog(
+            "callback PKCE transaction missing",
+            {
+              returnedState: returnedState,
+              pkceKey: pkceKey,
+              resolvedState: state,
+              transactionKey: transactionKey,
+              sessionRecordPresent: Boolean(window.sessionStorage.getItem(transactionKey)),
+              localRecordPresent: Boolean(window.localStorage.getItem(transactionKey)),
+              callbackUrl: url.origin + url.pathname,
+            },
+            config,
+          );
+          throw new Error("NINAuth callback state is unknown or expired.");
+        }
         if (transaction.clientId && config.clientId && transaction.clientId !== config.clientId) {
           throw new Error("NINAuth callback state does not belong to this client.");
         }

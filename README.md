@@ -67,8 +67,12 @@ await client.fetchUserInfo(accessToken);
 await client.fetchUserInfo(accessToken, "RC_NUMBER");
 ```
 
-PKCE verifier records are scoped to the exact returned `state`, stored in
-`sessionStorage`, and expire after 15 minutes. If the backend omits `state`,
+PKCE verifier records are scoped to the exact returned `state` and expire after
+15 minutes. The SDK stores the primary record in `sessionStorage` and a
+short-lived recovery copy in `localStorage`. This lets an OAuth callback opened
+in a new tab or window recover the original transaction, since browsing contexts
+do not share `sessionStorage`. `completeCallback(state)`, `clearCodeVerifier()`,
+and `clearPkceStorage()` remove both copies. If the backend omits `state`,
 `handleCallback()` recovers only when exactly one unexpired SDK transaction
 matches the configured client ID and redirect URI. Custom `state` values must be
 unpredictable strings of at least 16 characters.
