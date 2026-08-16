@@ -13,6 +13,33 @@ pnpm add @ninauth/sdk
 
 ## Usage
 
+### React
+
+React applications should use the declarative component. It mounts and cleans up
+the SDK button for you; your application does not need a `useEffect`, selector,
+or generated element ID.
+
+```tsx
+import "@ninauth/sdk/ninauth.css";
+import { NinAuthButton } from "@ninauth/sdk/react";
+
+export function SignIn() {
+  return (
+    <NinAuthButton
+      hostedOrigin="https://ssologin.nimc.gov.ng"
+      clientId="ENTC393354556C4"
+      appId="APPISGSCGLIF"
+      redirectUri={`${window.location.origin}/auth/callback`}
+      scope={["firstName", "middleName", "lastName"]}
+      variant="green"
+      type="business"
+    />
+  );
+}
+```
+
+### Browser JavaScript (without React)
+
 ```ts
 import "@ninauth/sdk/ninauth.css";
 import { createClient, renderButton } from "@ninauth/sdk";

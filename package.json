@@ -1,6 +1,6 @@
 {
   "name": "@ninauth/sdk",
-  "version": "0.2.18",
+  "version": "0.3.0",
   "description": "Web, React Native, and Expo SDK for NINAuth hosted OAuth flows.",
   "license": "MIT",
   "keywords": [
@@ -43,6 +43,11 @@
     },
     "./ninauth.css": "./dist/ninauth.css",
     "./ninauth.js": "./dist/ninauth.js",
+    "./react": {
+      "types": "./dist/react.d.ts",
+      "import": "./dist/react.js",
+      "default": "./dist/react.js"
+    },
     "./react-native": {
       "types": "./dist/react-native.d.ts",
       "react-native": "./dist/react-native.js",

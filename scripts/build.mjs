@@ -5,6 +5,7 @@ import { fileURLToPath } from "node:url";
 const rootDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const browserDir = path.join(rootDir, "src", "browser");
 const nativeDir = path.join(rootDir, "src", "native");
+const reactDir = path.join(rootDir, "src", "react");
 const assetsDir = path.join(rootDir, "assets");
 const distDir = path.join(rootDir, "dist");
 
@@ -24,6 +25,8 @@ cpSync(path.join(nativeDir, "react-native.d.ts"), path.join(distDir, "react-nati
 cpSync(path.join(nativeDir, "expo.js"), path.join(distDir, "expo.js"));
 cpSync(path.join(nativeDir, "react-native.d.ts"), path.join(distDir, "expo.d.ts"));
 cpSync(path.join(nativeDir, "native-icon.js"), path.join(distDir, "native-icon.js"));
+cpSync(path.join(reactDir, "react.js"), path.join(distDir, "react.js"));
+cpSync(path.join(reactDir, "react.d.ts"), path.join(distDir, "react.d.ts"));
 
 const runtimeWrapper = `import "./ninauth.js";
 
@@ -48,4 +51,3 @@ writeFileSync(
   path.join(distDir, "index.d.ts"),
   readFileSync(path.join(browserDir, "ninauth.d.ts"), "utf8"),
 );
-
