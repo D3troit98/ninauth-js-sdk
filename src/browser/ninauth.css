@@ -74,6 +74,24 @@
   background: #eef6f1;
 }
 
+.ninauth-launch-button--outline {
+  border: 1px solid var(--na-primary);
+  background: transparent;
+  color: var(--na-primary);
+}
+
+.ninauth-launch-button--outline:hover { background: #eafff6; }
+.ninauth-launch-button--outline:active { background: #d9f8e8; }
+
+.ninauth-launch-button--icon {
+  width: var(--na-button-height, 48px);
+  padding: 0;
+  background: var(--na-primary);
+  color: #fff;
+}
+
+.ninauth-launch-button--icon > span:last-child { display: none; }
+
 .ninauth-launch-button:disabled,
 .ninauth-launch-button.is-loading {
   cursor: wait;

@@ -798,11 +798,14 @@
     if (!root) throw new Error("NINAuth button target was not found.");
 
     const client = createClient(options);
-    const variant = client.config.variant === "white" ? "white" : "green";
+    const supportedVariants = ["green", "white", "outline", "icon"];
+    const variant = supportedVariants.indexOf(client.config.variant) >= 0 ? client.config.variant : "green";
     const isBusiness = client.config.type === "business";
     const button = document.createElement("button");
     button.type = "button";
     button.className = "ninauth-launch-button ninauth-launch-button--" + variant;
+    if (client.config.buttonHeight != null) button.style.setProperty("--na-button-height", typeof client.config.buttonHeight === "number" ? client.config.buttonHeight + "px" : String(client.config.buttonHeight));
+    if (client.config.borderRadius != null) button.style.borderRadius = typeof client.config.borderRadius === "number" ? client.config.borderRadius + "px" : String(client.config.borderRadius);
 
     const iconContainer = document.createElement("span");
     iconContainer.innerHTML = buttonIcon();
@@ -815,6 +818,12 @@
 
     button.append(iconContainer, label);
 
+    function resetButton() {
+      button.disabled = false;
+      button.classList.remove("is-loading");
+      label.textContent = displayButtonText;
+    }
+    window.addEventListener("pageshow", resetButton);
     button.addEventListener("click", async function () {
       if (button.disabled) return;
       button.disabled = true;
@@ -823,9 +832,7 @@
       try {
         await client.signIn(options);
       } catch (error) {
-        button.disabled = false;
-        button.classList.remove("is-loading");
-        label.textContent = displayButtonText;
+        resetButton();
         console.error("[NINAuth SDK] button sign-in failed", error);
         window.dispatchEvent(
           new CustomEvent("ninauth:error", {

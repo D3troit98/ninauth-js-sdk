@@ -139,6 +139,8 @@ export function NINAuthButton({
   loadingText = "Opening NINAuth…",
   variant = "green",
   size = "default",
+  buttonHeight,
+  borderRadius,
   style,
   textStyle,
   ...options
@@ -146,6 +148,8 @@ export function NINAuthButton({
   const [loading, setLoading] = useState(false);
   const isDisabled = disabled || loading;
   const isWhite = variant === "white";
+  const isOutline = variant === "outline";
+  const isIconOnly = variant === "icon";
   const sizeButtonStyle =
     size === "large"
       ? styles.largeButton
@@ -178,7 +182,10 @@ export function NINAuthButton({
       style: ({ pressed }) => [
         styles.button,
         sizeButtonStyle,
-        isWhite ? styles.whiteButton : styles.greenButton,
+        isWhite ? styles.whiteButton : isOutline ? styles.outlineButton : styles.greenButton,
+        isIconOnly && styles.iconButton,
+        buttonHeight != null && { height: buttonHeight },
+        borderRadius != null && { borderRadius },
         isWhite && whitePaddingStyle,
         pressed && styles.pressed,
         isDisabled && styles.disabled,
@@ -188,9 +195,9 @@ export function NINAuthButton({
     React.createElement(
       View,
       { style: styles.content },
-      loading
+        loading
         ? React.createElement(ActivityIndicator, { color: isWhite ? "#059661" : "#ffffff" })
-        : React.createElement(NINAuthIcon, { variant }),
+        : React.createElement(NINAuthIcon, { variant: isWhite ? "white" : "green" }),
       React.createElement(
         Text,
         {
@@ -201,7 +208,7 @@ export function NINAuthButton({
             textStyle,
           ],
         },
-        loading ? loadingText : buttonText,
+        isIconOnly ? undefined : loading ? loadingText : buttonText,
       ),
     ),
   );
@@ -225,6 +232,8 @@ const styles = StyleSheet.create({
   largeButton: { height: 44, paddingHorizontal: 38 },
   greenButton: { backgroundColor: "#008643" },
   whiteButton: { backgroundColor: "#ffffff" },
+  outlineButton: { backgroundColor: "transparent", borderWidth: 1, borderColor: "#008643" },
+  iconButton: { width: 48, maxWidth: 48, paddingHorizontal: 0 },
   smallWhitePadding: { paddingHorizontal: 26 },
   defaultWhitePadding: { paddingHorizontal: 40 },
   content: { flexDirection: "row", alignItems: "center", justifyContent: "center", gap: 8 },

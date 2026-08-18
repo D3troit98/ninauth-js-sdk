@@ -50,7 +50,9 @@ renderButton("#ninauth-button", {
   appId: "APPISGSCGLIF",
   redirectUri: "https://example.com/auth/callback",
   scope: ["firstName", "middleName", "lastName"],
-  variant: "green",
+  variant: "outline",
+  buttonHeight: 52,
+  borderRadius: 12,
 });
 ```
 
@@ -143,6 +145,20 @@ the callback state, and never requires a client secret in the application.
 Native button sizes are `small` (up to 220px), `default` (up to 270px), and
 `large` (the full width of its parent). The default is `default`. The `style`
 prop can override these presets.
+
+### Button variants and sizing
+
+`variant` controls the button treatment, not just its color:
+
+- `green`: filled green button with white icon and text (default)
+- `white`: filled white button with green icon and text
+- `outline`: transparent button with a green border
+- `icon`: square icon-only button; provide an accessible `buttonText` even though it is not displayed
+
+Web and native buttons accept `buttonHeight` (CSS length on web, number of
+points on native) and `borderRadius` (same units). Native also supports the
+existing `size` presets. Example: `variant: "outline", buttonHeight: 52,
+borderRadius: 12`.
 
 ## React Native without Expo
 
