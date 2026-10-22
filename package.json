@@ -1,6 +1,6 @@
 {
   "name": "@ninauth/sdk",
-  "version": "0.3.1",
+  "version": "0.4.0",
   "description": "Web, React Native, and Expo SDK for NINAuth hosted OAuth flows.",
   "license": "MIT",
   "keywords": [
@@ -66,6 +66,7 @@
     "access": "public"
   },
   "scripts": {
+    "test": "node --test",
     "build": "node scripts/build.mjs",
     "prepack": "npm run build",
     "pack:check": "npm pack --dry-run"

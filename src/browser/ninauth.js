@@ -552,6 +552,7 @@
             state: next.state,
             pkce_key: next.pkceKey,
             type: next.type,
+            rc_number: next.rcNumber?.trim(),
           },
           [
             "client_id",
@@ -565,6 +566,7 @@
             "state",
             "pkce_key",
             "type",
+            "rc_number",
           ],
         );
         return url.toString();
@@ -640,6 +642,7 @@
           codeChallenge: pkce.challenge,
           requestId: resolved.requestId,
           type: resolved.type,
+          rcNumber: resolved.rcNumber?.trim(),
         }, resolved);
         debugLog("button sign-in redirect", {
           state: state,

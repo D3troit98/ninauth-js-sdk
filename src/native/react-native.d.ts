@@ -15,6 +15,7 @@ export interface NINAuthNativeConfig {
   scope?: string[];
   state?: string;
   type?: NINAuthNativeType;
+  rcNumber?: string;
   preferEphemeralSession?: boolean;
   callbackTimeoutMs?: number;
   browserOptions?: Record<string, unknown>;

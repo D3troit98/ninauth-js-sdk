@@ -55,6 +55,7 @@ export function createAuthorizeUrl(options, transaction) {
   url.searchParams.set("code_challenge", transaction.codeChallenge);
   url.searchParams.set("code_challenge_method", "S256");
   url.searchParams.set("type", options.type || "personal");
+  if (options.rcNumber?.trim()) url.searchParams.set("rc_number", options.rcNumber.trim());
   return url.toString();
 }
 

@@ -48,6 +48,7 @@ export function NinAuthButton({ className, id, style, onReady, ...config }) {
     config.state,
     config.pkceKey,
     config.type,
+    config.rcNumber,
     onReady,
   ]);
 

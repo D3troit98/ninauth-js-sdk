@@ -8,7 +8,7 @@ For complete setup and integration instructions, see the
 ## Install
 
 ```bash
-pnpm add @ninauth/sdk
+pnpm add @ninauth/sdk@0.4.0
 ```
 
 ## Usage
@@ -37,6 +37,12 @@ export function SignIn() {
   );
 }
 ```
+
+For business sign-in, pass `rcNumber="3483294"` to verify that company directly
+after authentication and skip company search. Omit it or leave it blank to let
+the user search and select a company. The same `rcNumber` option is available
+to `createClient`, `renderButton`, and the native components. Verification must
+succeed before the app receives its callback.
 
 ### Browser JavaScript (without React)
 
@@ -163,7 +169,7 @@ borderRadius: 12`.
 ## React Native without Expo
 
 ```bash
-npm install @ninauth/sdk @noble/hashes react-native-get-random-values react-native-inappbrowser-reborn react-native-svg react-native-url-polyfill
+npm install @ninauth/sdk@0.4.0 @noble/hashes react-native-get-random-values react-native-inappbrowser-reborn react-native-svg react-native-url-polyfill
 npx pod-install
 ```
 
