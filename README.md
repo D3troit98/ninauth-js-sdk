@@ -202,7 +202,7 @@ The bare entry point has no Expo imports. Configure the callback scheme in
 
 ## Changelog
 
-Reconstructed from SDK commits, version changes, and available tags. Dates are commit dates, not verified npm publication dates. Repository history starts at 0.2.15; earlier patches are not available here.
+Release history for @ninauth/sdk. Dates are npm publication dates (UTC).
 
 See also the [developer guide changelog](https://ssologin.nimc.gov.ng/demo-sign-in/developer-guide/changelog).
 
@@ -251,7 +251,45 @@ Business callbacks in the browser
 
 ### 0.2.15 — 2026-08-03
 
-Initial repository baseline
+Web and mobile OAuth integration
 
-- First version recorded in this repository, with browser, Expo, and bare React Native hosted OAuth integrations, S256 PKCE, and TypeScript declarations.
-- Subsequent changes while the package remained at 0.2.15 added rc_number to token-exchange payloads and optional business RC-number filtering to fetchUserInfo(accessToken, rcNumber).
+- Browser, Expo, and bare React Native hosted OAuth integrations with S256 PKCE and TypeScript declarations.
+- Added rc_number to token-exchange payloads and optional business RC-number filtering to fetchUserInfo(accessToken, rcNumber).
+
+### 0.2.14 — 2026-08-03
+
+Package release
+
+- Published on npm as @ninauth/sdk.
+
+### 0.2.13 — 2026-08-02
+
+Package release
+
+- Published on npm as @ninauth/sdk.
+
+### 0.2.12 — 2026-08-01
+
+Package release
+
+- Published on npm as @ninauth/sdk.
+
+### 0.2.11 — 2026-08-01
+
+Package release
+
+- Published on npm as @ninauth/sdk.
+
+### 0.2.1 — 2026-08-01
+
+Package release
+
+- Published on npm as @ninauth/sdk.
+
+### 0.2.0 — 2026-08-01
+
+Package release
+
+- Published on npm as @ninauth/sdk.
+
+Publication dates: [npm registry](https://registry.npmjs.org/@ninauth%2Fsdk).
