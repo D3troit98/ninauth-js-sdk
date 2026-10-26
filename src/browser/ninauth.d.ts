@@ -21,7 +21,7 @@ export interface NINAuthClientConfig {
   pkceKey?: string;
   /** Sign-in journey to launch. Defaults to "personal". */
   type?: "personal" | "business" | string;
-  /** Verify this business directly, skipping company search. */
+  /** Search by RC automatically; verify one match or let the user choose from multiple matches. */
   rcNumber?: string;
 }
 
